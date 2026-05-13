@@ -7,75 +7,57 @@ End-to-end AI-driven virtual screening pipeline for Human Kappa Opioid Receptor 
 
 This project presents a complete AI-assisted Structure-Based Drug Discovery (SBDD) workflow for High-Throughput Virtual Screening (HTVS) against the Human Kappa Opioid Receptor (KOR) using GNINA deep learning docking.
 
-The workflow includes:
+The pipeline automates:
 
-- Receptor preparation
-- Ligand library preparation
-- 3D conformer generation
-- Batch molecular docking
-- CNN affinity scoring
-- Virtual screening analytics
-- Pose visualization
-- Export of ranked hit compounds
+Receptor preparation (cleaning, chain isolation, and protonation).
 
----
+Ligand library standardization (3D conformation generation and MMFF optimization).
 
-## Target Information
+Molecular docking using the GNINA engine.
 
-### Human Kappa Opioid Receptor (KOR)
+Pose rescoring via Convolutional Neural Networks (CNN).
 
-- PDB ID: 4DJH
-- Protein Class: GPCR (G-Protein Coupled Receptor)
-- Biological Role:
-  - Regulates pain perception
-  - Mood modulation
-  - Stress response
-  - Addiction pathways
+Scientific Workflow
+1. Receptor Preparation
+The target is the Human Kappa Opioid Receptor (PDB ID: 4DJH). The pipeline isolates Chain A, removes crystallographic additives (water, salts, etc.), and retains the co-crystallized ligand JDC to define the active site search space. OpenBabel is utilized to add hydrogens and prepare the receptor in a format compatible with GNINA.
 
-KOR is an important therapeutic target in:
+2. Ligand Library Standardization
+The ligand library is fetched directly from GitHub in CSV format. The pipeline performs the following:
 
-- Analgesic drug discovery
-- Antidepressant development
-- Addiction treatment
-- Neuropsychiatric disorders
+Data Cleaning: Removes duplicates and handles missing SMILES.
 
----
+3D Embedding: Uses RDKit's ETKDGv3 algorithm for realistic 3D conformation generation.
 
-## Docking Engine
+Energy Minimization: Refines structures using the MMFF94 force field.
 
-This project uses:
+3. Molecular Docking & CNN Rescoring
+Docking is performed using GNINA, a fork of Smina and AutoDock Vina that utilizes deep learning.
 
-### GNINA
+Autoboxing: The search box is automatically centered on the reference ligand (JDC) with a 6Å buffer.
 
-GNINA extends AutoDock Vina by integrating:
+CNN Rescoring: Beyond traditional Vina affinity, poses are evaluated using a CNN model to predict binding probability and affinity based on protein-ligand spatial features.
 
-- Convolutional Neural Networks (CNNs)
-- Deep learning-based scoring
-- Pose prediction refinement
-- CNN affinity estimation
+Results & Visualization
+The output includes a comprehensive CSV file (KOR_HTVS_Results.csv) containing:
 
-Official Repository:
-https://github.com/gnina/gnina
+Vina_Affinity: Traditional physics-based scoring.
 
----
+CNN_Affinity: Deep learning-based affinity prediction.
 
-## Workflow
+The top-scoring hits are visualized directly within the notebook using py3Dmol.
 
-1. Download KOR receptor structure
-2. Prepare receptor
-3. Retrieve ligand library from GitHub
-4. Generate ligand 3D conformers
-5. Optimize molecular geometries
-6. Perform high-throughput docking
-7. Rank compounds using CNN affinity scores
-8. Visualize top hits
-9. Export screening results
+Note: To see the interactive 3D visualizations, run the notebook using the "Open in Colab" button above.
 
----
+Tools & Technologies
+Python 3.x
 
-## Input Ligand CSV Format
+GNINA: Deep learning molecular docking engine.
 
-```csv
-compound_id,smiles
-compound_1,CCO
-compound_2,CCN(CC)CC
+RDKit: Cheminformatics and 3D molecule manipulation.
+
+OpenBabel: Chemical file format interconversion.
+
+py3Dmol: Web-based 3D molecular visualization.
+
+Author: **Babak Mamnoon**
+Project Type: Computational Drug Discovery / Cheminformatics
