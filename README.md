@@ -1,4 +1,4 @@
-# High-Throughput-Virtual-Screening-of-Human-Kappa-Opioid-Receptor
+# High-Throughput-Virtual-Screening-of-Kappa-Opioid-Receptor-Inhibitors
 End-to-end AI-driven virtual screening pipeline for Human Kappa Opioid Receptor (KOR) combining deep learning docking, cheminformatics, and structure-based drug discovery using GNINA and RDKit
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Babakmamnoon/High-Throughput-Virtual-Screening-of-Human-Kappa-Opioid-Receptor/blob/main/GNINA_Virtual_Screening_of_Human_Kappa_Opioid_Receptor.ipynb)
